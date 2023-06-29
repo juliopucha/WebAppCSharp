@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WebAppAspNetFramMVC.Models.Paquete>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PaquetesEnviadosProvincia</title>
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>
+                Codigo
+            </th>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Destinatario
+            </th>
+            <th>
+                Dirección destinatario
+            </th>
+            <th>
+                Cedula conductor
+            </th>
+            <th>
+                Provincia destino
+            </th>
+        </tr>
+
+        @foreach (var paquete in Model) 
+        {
+            <tr>
+                <td>
+                    @paquete.Cod_paquete
+                </td>
+                <td>
+                    @paquete.Descripcion
+                </td>
+                <td>
+                    @paquete.Destinatario
+                </td>
+                <td>
+                    @paquete.Direccion_destinatario
+                </td>
+                <td>
+                    @paquete.Cedula_conductor
+                </td>
+                <td>
+                    @paquete.Provincia_destino
+                </td>
+            </tr>
+
+        }
+    </table>
+    
+</body>
+</html>
