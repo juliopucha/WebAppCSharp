@@ -13,9 +13,11 @@ namespace WebAppAspNetFramMVC.Models
 
         private void Conectar() 
         {
-            string cadenaConexion = 
+            string cadenaConexion = //Sin cifrar: ConnectionStrings["name"] 
                 ConfigurationManager.ConnectionStrings["administracion"].ToString();
-
+            // Cifrado: ConnectionStrings["name"], es decir, es el mismo argumento.
+            // Pero, hay que tener precauci-on al abrir Visual Studio Tools con el
+            // mismo usuario que se cifr-o o encript-o la cadena de conexi-on.
             conexion = new SqlConnection(cadenaConexion);
         }
 
