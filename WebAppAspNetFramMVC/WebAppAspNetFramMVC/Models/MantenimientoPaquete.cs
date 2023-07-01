@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 
 namespace WebAppAspNetFramMVC.Models
 {
@@ -13,11 +14,18 @@ namespace WebAppAspNetFramMVC.Models
 
         private void Conectar() 
         {
+            // Con la etiqueta connectionStrings
             string cadenaConexion = //Sin cifrar: ConnectionStrings["name"] 
                 ConfigurationManager.ConnectionStrings["administracion"].ToString();
             // Cifrado: ConnectionStrings["name"], es decir, es el mismo argumento.
             // Pero, hay que tener precauci-on al abrir Visual Studio Tools con el
             // mismo usuario que se cifr-o o encript-o la cadena de conexi-on.
+
+            
+            // Con la etiqueta appSettings
+            //string cadenaConexion = WebConfigurationManager.AppSettings["SQLCONN"].ToString();
+            
+            //------------------------------------------------------------
             conexion = new SqlConnection(cadenaConexion);
         }
 
