@@ -1,4 +1,5 @@
 USE COURIER;
+PRINT N'Script de creaci-on de los SP';
 --GO
 --SELECT * FROM CONDUCTOR;
 --GO
@@ -55,15 +56,15 @@ ALTER PROCEDURE pa_conductor_conduce_camion_por_placa
   @cantidad NUMERIC (4,0) = NULL OUTPUT --cantidad de coincidencias
     AS	  
 	  BEGIN
-	  -- Se verifica el n-umero de la placa
+	  -- Se verifica el n-umero de la placa, con un SP anidado.
 	    DECLARE @pla INT
 	    EXEC @pla= pa_validacionplaca @placa = @placacamion;
 		BEGIN
 		  IF @pla = 1 
 		    BEGIN
 			  SELECT 'El campo est-a vac-io. Ingrese una Placa.'
-			  PRINT N'Intente otra vez'; --PRINT N'Intente otra vez';
-			  RETURN
+			  PRINT N'Intente otra vez'; --PRINT N'Intente otra vez'; -- Revisar la salida en la pesta-na "Mensajes".
+			  RETURN --Esto ayuda a salir inmediatemente del SP.
 			END;
 								
 		  ELSE
@@ -74,21 +75,29 @@ ALTER PROCEDURE pa_conductor_conduce_camion_por_placa
 				RETURN
 			  END;
 			ELSE
-			  IF @pla = 3 SELECT 'El veh-iculo ingresado no est-a registrado en el sistema.'
+			  IF @pla = 3 
+			    BEGIN
+				  SELECT 'El veh-iculo ingresado no est-a registrado en el sistema.'
+				  RETURN
+				END;
 			  ELSE
-			    IF @pla = 4 SELECT 'El cami-on todav-ia no ha sido utilizado.'
+			    IF @pla = 4 
+				  BEGIN
+				    SELECT 'El cami-on todav-ia no ha sido utilizado.'
+					RETURN
+				  END;
 		END;
 	 
 		-- IF @pla =0
 		BEGIN
-			SELECT CEDULA, NOMBRE, ca.PLACA, ca.MODELO, c.FECHA  FROM CONDUCTOR con
-			INNER JOIN CONDUCE c
-			ON con.CEDULA = c.CEDULA_CONDUCTOR	
-			JOIN CAMION ca
-			ON c.PLACA_CAMION = ca.PLACA
-			WHERE c.PLACA_CAMION = @placacamion;
-			--Retorna la cantidad de registros encontrados:				
-			SELECT @cantidad = (SELECT COUNT(*) FROM CONDUCE WHERE PLACA_CAMION = @placacamion);
+		  SELECT CEDULA, NOMBRE, ca.PLACA, ca.MODELO, c.FECHA  FROM CONDUCTOR con
+		  INNER JOIN CONDUCE c
+		  ON con.CEDULA = c.CEDULA_CONDUCTOR	
+		  JOIN CAMION ca
+		  ON c.PLACA_CAMION = ca.PLACA
+		  WHERE c.PLACA_CAMION = @placacamion;
+		--Retorna la cantidad de registros encontrados:				
+		  SELECT @cantidad = (SELECT COUNT(*) FROM CONDUCE WHERE PLACA_CAMION = @placacamion);
 		END;
 
 	  END;
@@ -96,7 +105,7 @@ ALTER PROCEDURE pa_conductor_conduce_camion_por_placa
 GO
 -- VALORES PARA PROBAR: --NULL; 'STD-23'; 'LRS-1122334'; 'EO-998877'; -- 'PCR-0123'; 'FK-1010'; 'GED-1234';
 DECLARE @variable_cant_cami NUMERIC(4,0);
-EXECUTE pa_conductor_conduce_camion_por_placa @placacamion='PCR-0123', @cantidad = @variable_cant_cami OUTPUT;
+EXECUTE pa_conductor_conduce_camion_por_placa @placacamion='GED-1234', @cantidad = @variable_cant_cami OUTPUT;
 SELECT @variable_cant_cami AS CANTIDAD_VECES_CONDUCIDO;
 EXECUTE pa_conductor_conduce_camion_por_placa @placacamion=NULL;
 EXECUTE pa_conductor_conduce_camion_por_placa;
@@ -109,10 +118,11 @@ GO
 IF (OBJECT_ID('pa_validacionplaca')) IS NOT NULL
 DROP PROCEDURE pa_validacionplaca;
 GO
--- Este procedimiento recibe una placa y retorna distintos valores según:
--- sea nulo (1), no sea v-alido (2), no esté en la tabla "camion" (3),
+-- Este procedimiento recibe una placa y retorna distintos valores segÃºn:
+-- sea nulo (1), no sea v-alido (2), no estÃ© en la tabla "camion" (3),
 -- no est-e en la tabla "conduce" (4), y si el cami-on ya ha sido utilizado (0).
--- Este procedimiento recibe par-ametro, emplea "return"
+-- Este procedimiento recibe par-ametro, emplea "return".
+--- Este SP es llamado desde "pa_conductor_conduce_camion_por_placa".
 CREATE PROC pa_validacionplaca
   @placa VARCHAR(10) = NULL 
     AS
