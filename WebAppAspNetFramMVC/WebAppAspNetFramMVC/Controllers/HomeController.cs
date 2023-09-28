@@ -20,5 +20,11 @@ namespace WebAppAspNetFramMVC.Controllers
             MantenimientoPaquete mp = new MantenimientoPaquete();
             return View(mp.RecuperarTodos());
         }
+
+        public ActionResult ConductoresCondujeronCamiones() 
+        {
+            MantenimientoPaquete mp = new MantenimientoPaquete();
+            return View( mp.conductoresConducenCamionesPorPlaca("FK-1010") );
+        }
     }
 }

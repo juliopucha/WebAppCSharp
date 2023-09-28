@@ -1,19 +1,21 @@
 ﻿
 @{
-    Layout = null;
+    @@Layout = null;
+    Layout = "_Layout";
+    ViewBag.Title = "Home Page";
 }
 
 <!DOCTYPE html>
 
 <html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div> 
-        <p><a href="/Home/FormularioIngresaPaquete">Ingresar un nuevo paquete.</a></p>
-        <p><a href="/Home/PaquetesEnviadosProvincia">Paquetes enviados a una provincia</a></p>
-    </div>
-</body>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Index</title>
+    </head>
+    <body>
+        <div> 
+            <p><a href="/Home/FormularioIngresaPaquete">Ingresar un nuevo paquete.</a></p>
+            <p><a href="/Home/PaquetesEnviadosProvincia">Paquetes enviados a una provincia</a></p>
+        </div>
+    </body>
 </html>

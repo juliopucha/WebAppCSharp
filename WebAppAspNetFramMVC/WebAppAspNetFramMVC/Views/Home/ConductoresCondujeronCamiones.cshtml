@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebAppAspNetFramMVC.Models.ConductorCamion>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<!--
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>ConductoresCondujeronCamiones</title>
+    </head>
+    <body>
+        <div>
+        </div>
+    </body>
+</html>
+-->
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ConductoresCondujeronCamiones</title>
+</head>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cedula</th>
+            <th>Conductor</th>
+            <th>Placa</th>
+            <th>Modelo</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var conductor in Model) 
+        {
+            <tr>
+                <td>@conductor.Cedula_conductor</td>
+                <td>@conductor.Nombre_conductor</td>
+                <td>@conductor.Placa</td>
+                <td>@conductor.Modelo</td>
+                <td>@conductor.Fecha_coduccion.ToString("dd/MM/yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>

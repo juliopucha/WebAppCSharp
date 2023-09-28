@@ -53,5 +53,47 @@ namespace WebAppAspNetFramMVC.Models
             conexion.Close();
             return paquetes;
         }
+
+        //-------------acceso a datos con nombre de SP existente en una BDD de SQL Server
+
+        public List<ConductorCamion> conductoresConducenCamionesPorPlaca(string placa)
+        {
+            Conectar();
+            List<ConductorCamion> lista = new List<ConductorCamion>();
+
+            try
+            {
+                SqlCommand comando = new SqlCommand("pa_conductor_conduce_camion_por_placa", conexion);
+                conexion.Open();
+                comando.CommandType = System.Data.CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@placacamion", placa);
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    ConductorCamion cc = new ConductorCamion();
+                    cc.Cedula_conductor = reader.GetString(0);
+                    cc.Nombre_conductor = reader.GetString(1);
+                    cc.Placa = reader.GetString(2);
+                    cc.Modelo = reader.GetString(3);
+                    cc.Fecha_coduccion = reader.GetDateTime(4);
+                    lista.Add(cc);
+                }
+
+            }
+            catch (SqlException e) // warning: variable no utilizada.
+            {
+                //throw new UsuarioExcepcion("Error en base de datos");
+            }
+            finally 
+            {
+                if (conexion != null)
+                    conexion.Close();
+            }
+            return lista;
+
+        }
+
+
+
     }
 }
