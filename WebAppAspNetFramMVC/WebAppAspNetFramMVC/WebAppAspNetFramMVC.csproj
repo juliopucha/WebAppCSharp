@@ -135,6 +135,8 @@
     <Content Include="Views\_ViewImports.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\TodosLosPaquetes.cshtml" />
+    <Content Include="Views\Home\PaquetePorCodigo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

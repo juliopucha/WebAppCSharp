@@ -1,21 +1,23 @@
-﻿
-@{
-    @@Layout = null;
-    Layout = "_Layout";
-    ViewBag.Title = "Home Page";
-}
+﻿@*@{
+        @@Layout = null;
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        ViewBag.Title = "Home Page";
+    } *@
 
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Index</title>
-    </head>
-    <body>
-        <div> 
-            <p><a href="/Home/FormularioIngresaPaquete">Ingresar un nuevo paquete.</a></p>
-            <p><a href="/Home/PaquetesEnviadosProvincia">Paquetes enviados a una provincia</a></p>
-        </div>
-    </body>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <p><a href="/Home/FormularioIngresaPaquete">Ingresar un nuevo paquete.</a></p>
+        <p><a href="/Home/TodosLosPaquetes">Mostrar la lista de todos los paquetes</a></p>
+        <p><a href="/Home/PaquetesEnviadosProvincia">Paquetes enviados a una provincia</a></p>
+        <p><a href="/Home/PaquetePorCodigo">Información de un paquete por código</a></p>
+        <p><a href="/Home/ConductoresCondujeronCamiones">Lista de conductores que condujeron un determinado camión</a></p>
+    </div>
+</body>
 </html>

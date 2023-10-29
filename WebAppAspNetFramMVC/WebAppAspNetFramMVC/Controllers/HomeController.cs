@@ -15,12 +15,23 @@ namespace WebAppAspNetFramMVC.Controllers
             return View();
         }
 
+        public ActionResult TodosLosPaquetes()
+        {
+            MantenimientoPaquete mp = new MantenimientoPaquete();
+            return View(mp.RecuperarTodosLosPaquetes());
+        }
+
         public ActionResult PaquetesEnviadosProvincia() 
         {
             MantenimientoPaquete mp = new MantenimientoPaquete();
-            return View(mp.RecuperarTodos());
+            return View(mp.RecuperarLosPaquetesEnviadosAUnaProvincia("8080"));
         }
 
+        public ActionResult PaquetePorCodigo()
+        {
+            MantenimientoPaquete mp = new MantenimientoPaquete();
+            return View(mp.informacionDeUnPaquetePorCodigo("53434"));
+        }
         public ActionResult ConductoresCondujeronCamiones() 
         {
             MantenimientoPaquete mp = new MantenimientoPaquete();

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WebAppAspNetFramMVC.Models.Paquete>
+
+@*@{
+        @@Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    }*@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PaquetePorCodigo</title>
+
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>Codigo del paquete</th>
+            <th>
+                <!-- @@Html.DisplayNameFor(model => model.Descripcion)--> <!--esto no funciona con "List"-->
+                Descripcion <!--esto funciona con "List" y con "IEnumerable"-->
+            </th>
+            <th>
+                Destinatario
+            </th>
+            <th>
+                Dirección destinatario
+            </th>
+            <th>
+                Cedula conductor
+            </th>
+            <th>
+                Provincia destino
+            </th>
+        </tr>
+
+        @foreach (var paquete in Model)
+        {
+            <tr>
+                <td>
+                    @paquete.Cod_paquete
+                </td>
+                <td>
+                    @paquete.Descripcion
+                </td>
+                <td>
+                    @paquete.Destinatario
+                </td>
+                <td>
+                    @paquete.Direccion_destinatario
+                </td>
+                <td>
+                    @paquete.Cedula_conductor
+                </td>
+                <td>
+                    @paquete.Provincia_destino
+                </td>
+            </tr>
+        }
+    </table>
+
+</body>
+</html>
